@@ -10,7 +10,7 @@ const ejs=require("ejs")
 
 require("dotenv").config();
 
-const PORT=process.env.port;
+const PORT=process.env.port || 7080;
 
 app.use(express.json());
 
