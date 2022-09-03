@@ -21,6 +21,7 @@ class userServices{
                 }
             }else{
                 const newUser= await userModel.create(req.body);
+                console.log("--newUser--",newUser)
                 if(newUser){
                     return{
                         status:true,
