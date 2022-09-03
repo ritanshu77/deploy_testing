@@ -3,7 +3,7 @@ const router=express.Router();
 const userController=require("../controller/userController");
 
 //browser testing function
-router.get("/test",userController.test);
+router.get("/",userController.test);
 
 
 router.post("/create_user",userController.createUser);
