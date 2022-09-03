@@ -3,10 +3,20 @@ const userService=require("../services/userServices");
 class userController{
     constructor(){
         return{
+            test:this.test.bind(this),
             createUser:this.createUser.bind(this),
             updateUser:this.updateUser.bind(this),
             deleteUser:this.deleteUser.bind(this),
             viewAllUser:this.viewAllUser.bind(this),
+        }
+    }
+    async test(req,res,next){
+        try{
+
+            res.render("tesing");
+
+        }catch(error){
+            console.log(error)
         }
     }
     async createUser(req,res,next){
