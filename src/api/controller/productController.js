@@ -1,4 +1,4 @@
-const productServcies=require("../services/userServices");
+const productServcies=require("../services/productServices");
 
 class userController{
     constructor(){
@@ -19,7 +19,7 @@ class userController{
     }
     async viewAllProduct(req,res,next){
         try{
-            const data=await productServcies.addProduct(req);
+            const data=await productServcies.viewAllProduct(req);
             res.status(200).send(data);
 
         }catch(error){

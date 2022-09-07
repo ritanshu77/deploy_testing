@@ -17,6 +17,9 @@ class productServcies{
                     data:{}
                 }
             }else{
+                if(req.file){
+                    req.body.image=`images/${req.file.filename}`
+                }
                 const newproduct=await productModel.create(req.body);
                 if(newproduct){
                     return{
@@ -39,11 +42,29 @@ class productServcies{
             throw error;
         }
     }
+
     async recursion(getall,subCat=null){
+        let myArray=[];
+        let subCategory;
         if(subCat == null ){
-            
+            subCategory=await getall.filter((x)=>x.product_childOf == null );
+            // console.log("----subCate--11111111---->",subCategory)
+        }else{
+            subCategory=await getall.filter((x)=>String(x.product_childOf) == String(subCat))
+            // console.log("----subCate--22222222---->",subCategory)
         }
+
+        for await(let key of subCategory){
+            let obj={};
+            obj.product_id=key._id;
+            obj.product_name=key.name;
+            obj.product_childOf=key?.product_childOf;
+            obj.sub_Product=await this.recursion(getall,key._id)
+            myArray.push(obj)
+        }
+        return myArray;
     }
+
     async viewAllProduct(req,res,next){
         try{
             const getALL=await productModel.find();
@@ -59,3 +80,5 @@ class productServcies{
         }
     }
 }
+
+module.exports=new productServcies();
